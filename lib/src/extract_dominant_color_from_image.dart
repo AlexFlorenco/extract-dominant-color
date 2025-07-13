@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:material_color_utilities/material_color_utilities.dart';
 
 class ExtractDominantColor {
-  Future<Color?> fromImage(ImageProvider provider) async {
+  static Future<Color?> fromImage(ImageProvider provider) async {
     try {
       final quantizerResult = await _extractColorsFromImageProvider(provider);
       final Map<int, int> colorToCount = quantizerResult.colorToCount.map(
@@ -27,7 +27,7 @@ class ExtractDominantColor {
     }
   }
 
-  Future<QuantizerResult> _extractColorsFromImageProvider(
+  static Future<QuantizerResult> _extractColorsFromImageProvider(
     ImageProvider imageProvider,
   ) async {
     final ui.Image scaledImage = await _imageProviderToScaled(imageProvider);
@@ -41,7 +41,7 @@ class ExtractDominantColor {
     return quantizerResult;
   }
 
-  Future<ui.Image> _imageProviderToScaled(ImageProvider imageProvider) async {
+  static Future<ui.Image> _imageProviderToScaled(ImageProvider imageProvider) async {
     const double maxDimension = 112.0;
     final ImageStream stream = imageProvider.resolve(
       const ImageConfiguration(size: Size(maxDimension, maxDimension)),
@@ -100,7 +100,7 @@ class ExtractDominantColor {
     return scaledImage;
   }
 
-  int _getArgbFromAbgr(int abgr) {
+  static int _getArgbFromAbgr(int abgr) {
     const int exceptRMask = 0xFF00FFFF;
     const int onlyRMask = ~exceptRMask;
     const int exceptBMask = 0xFFFFFF00;
